@@ -1,0 +1,19 @@
+<h1>Articles#index</h1>
+<h5>Dette view bliver brugt via navngivning, når action metoden ikke returnerer et view eksplicit</h5>
+
+<p>Articles fra databasen: </p>
+<ul>
+  <!-- % tagget = evaluér rubykoden -->
+  <% @articles.each do |elem| %>
+    <li>
+      <!-- %= tagget = evaluér rubykoden, og vis det der returneres -->
+      <!-- link_to er en pathhelper method, der er kommet af at lave resources routes
+      elem.title, er titlen på linket, elem er artiklen linket skal føre til.
+      Rails finder selv ud af hvordan routen skal se ud, den tager articles/:id
+      "-->
+      <%= link_to(elem.title,elem) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Article",new_article_path %>
