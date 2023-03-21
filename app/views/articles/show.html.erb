@@ -1,3 +1,43 @@
 <h1><%= @article.title %></h1>
 
 <p><%= @article.body %></p>
+
+<h2>Comments</h2>
+<% @article.comments.each do |comment| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+<% end %>
+
+
+<h2>Add a comment:</h2>
+<%= form_with model: [ @article, @article.comments.build ] do |form| %>
+  <p>
+    <%= form.label :commenter %><br>
+    <%= form.text_field :commenter %>
+  </p>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
+
+<ul>
+  <li><%= link_to "Edit", edit_article_path(@article) %></li>
+  <li><%= link_to "Delete", article_path(@article), data: {
+    turbo_method: :delete, #da vi ikke har er verb i routerne, vi kan pege en path helper metode på, såsom i edit
+                            #bruger vi turbo_method til at ændre HTTP request typen til DELETE, så den peger på destroy metoden
+    turbo_confirm: "Are you sure?"
+  } %></li>
+  <li><%= link_to "Tilbage", root_path %></li>
+</ul>
